@@ -1,10 +1,10 @@
+import type { Application, NextFunction, Request, Response } from 'express'
+import compression from 'compression'
 import { inflateRawSync } from 'zlib'
 import { createSign } from 'crypto'
 import { readFileSync } from 'fs'
-import compression from 'compression'
 import express from 'express'
 import read from 'raw-body'
-import type { Application, NextFunction, Request, Response } from 'express'
 
 import morganMiddleware from '../config/morganMiddleware'
 

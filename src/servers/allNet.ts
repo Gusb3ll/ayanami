@@ -1,17 +1,17 @@
-import { unzipSync } from 'zlib'
+import type { Application, NextFunction, Request, Response } from 'express'
 import compression from 'compression'
 import { addHours } from 'date-fns'
+import { unzipSync } from 'zlib'
 import iconv from 'iconv-lite'
 import express from 'express'
 import read from 'raw-body'
-import type { Application, NextFunction, Request, Response } from 'express'
 
 import morganMiddleware from '../config/morganMiddleware'
 import { startupHost, startupUri } from '../utils/switchboard'
 
 const app: Application = express()
 
-const hourDelta = parseInt(process.env.HOUR_DELTA)
+const hourDelta = parseInt(process.env.HOUR_DELTA!)
 
 app.use(compression())
 app.use(express.json())
