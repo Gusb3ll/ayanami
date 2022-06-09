@@ -97,8 +97,6 @@ export async function dispatch(rep, req, now) {
       return log(rep, req, now)
 
     case 'goodbye':
-      console.log('Goodbye')
-
       return undefined
 
     default:
