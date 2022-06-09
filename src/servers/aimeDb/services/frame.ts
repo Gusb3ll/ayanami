@@ -32,7 +32,7 @@ export class Deframer extends Transform {
 
     const frame = this.state.slice(0, len)
 
-    Logger.debug('Recv ', frame.toString('hex'))
+    Logger.debug(`FRAMER | Recv ${frame.toString('hex')}`)
 
     this.state = this.state.slice(len)
 

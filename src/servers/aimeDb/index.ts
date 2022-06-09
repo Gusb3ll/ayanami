@@ -1,7 +1,7 @@
 import type { Socket } from 'net'
 import { dispatch } from './handler'
 import { SqlRepositories } from './sql'
-import { setup } from './services/pipeline.service'
+import { setup } from './services/pipeline'
 import type { DataSource } from '../../utils/sql/api'
 
 import Logger from '../../lib/logger'

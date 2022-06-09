@@ -24,7 +24,7 @@ export class Encoder extends Transform {
   }
 
   _transform(msg, _encoder, callback) {
-    Logger.debug('ENCODER | Encode ', msg)
+    Logger.debug(`ENCODER | Encode ${msg}`)
 
     let buf: Buffer
 

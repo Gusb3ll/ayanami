@@ -3,9 +3,9 @@ import type { Socket } from 'net'
 import * as stream from 'stream'
 import { promisify } from 'util'
 
-import { Decoder } from './decoder.service'
-import { Deframer } from './frame.service'
-import { Encoder } from './encoder.service'
+import { Decoder } from './decoder'
+import { Encoder } from './encoder'
+import { Deframer } from './frame'
 
 const K = Buffer.from('Copyright(C)SEGA', 'utf8')
 const pipeline = promisify(stream.pipeline)

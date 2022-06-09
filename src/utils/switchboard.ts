@@ -25,7 +25,8 @@ startupHosts.set('SDDF', `${process.env.HOST_EXT}:${PORT_IDZ.USERDB.TCP}`)
 
 const startupUris = new Map<string, string>()
 
-startupUris.set('SDBT', `http://${process.env.HOST_EXT}:${process.env.PORT_CHUNITHM}/`)
+// startupUris.set('SDBT', `http://${process.env.HOST_EXT}:${process.env.PORT_CHUNITHM}/`)
+startupUris.set('SDHD', `http://${process.env.HOST_EXT}:${process.env.PORT_CHUNITHM}/`)
 
 export function startupHost(model: string): string {
   const val = startupHosts.get(model)

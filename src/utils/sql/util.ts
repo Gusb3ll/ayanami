@@ -1,4 +1,4 @@
-import snakeCase from 'snake-case'
+import { snakeCase } from 'snake-case'
 
 import type { Row } from './api'
 
