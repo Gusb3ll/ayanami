@@ -1,15 +1,36 @@
 import type { Socket } from 'net'
+import { dispatch } from './handler'
+import { SqlRepositories } from './sql'
+import { setup } from './services/pipeline.service'
+import type { DataSource } from '../../utils/sql/api'
 
-export default function aimeDb() {
+function aimeDb(db: DataSource) {
   return async function (socket: Socket) {
-    console.log('Socket connected')
-    try {
-      console.log(socket)
+    console.log('Socket Connected')
+    const { input, output } = await setup(socket)
+
+    for await (const obj of input) {
+      try {
+        const now = new Date()
+        const req = obj
+        const res = await db.transaction(txn =>
+          dispatch(new SqlRepositories(txn), req, now),
+        )
+        if (res === undefined) {
+          console.log('Closing connection')
+          break
+        }
+        output.write(res)
+      }
+      catch (err) {
+        console.error(err)
+        break
+      }
     }
-    catch (err) {
-      console.error('Error :', err)
-    }
-    console.log('Socket disconnected')
+
+    console.log('Socket Closed')
     socket.end()
   }
 }
+
+export default aimeDb
