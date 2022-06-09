@@ -25,7 +25,12 @@ startupHosts.set('SDDF', `${process.env.HOST_EXT}:${PORT_IDZ.USERDB.TCP}`)
 
 const startupUris = new Map<string, string>()
 
+// ! DO NOT UNCOMMENT BOTH URI AT THE SAME TIME
+
+// Chunithm Paradise Lost and below
 // startupUris.set('SDBT', `http://${process.env.HOST_EXT}:${process.env.PORT_CHUNITHM}/`)
+
+// Chunithm New and above
 startupUris.set('SDHD', `http://${process.env.HOST_EXT}:${process.env.PORT_CHUNITHM}/`)
 
 export function startupHost(model: string): string {

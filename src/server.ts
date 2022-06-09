@@ -11,7 +11,7 @@ import aimeDb from './servers/aimeDb'
 import allNet from './servers/allNet'
 import billing from './servers/billing'
 
-import chusan from './servers/chusan'
+import chunithm from './servers/chunithm/controller'
 
 const tls = { cert: readFileSync('pki/server.pem'), key: readFileSync('pki/server.key') };
 
@@ -26,7 +26,7 @@ const tls = { cert: readFileSync('pki/server.pem'), key: readFileSync('pki/serve
   https.createServer(tls, billing).listen(parseInt(process.env.PORT_BILLING!) || 8443, process.env.HOST_INT || '0.0.0.0', () => {
     Logger.debug(`Billing server started on ${process.env.HOST_INT || '0.0.0.0'}:${process.env.PORT_BILLING || 8443}`)
   })
-  http.createServer(chusan).listen(parseInt(process.env.PORT_CHUNITHM!) || 9001, process.env.HOST_INT || '0.0.0.0', () => {
+  http.createServer(chunithm).listen(parseInt(process.env.PORT_CHUNITHM!) || 9001, process.env.HOST_INT || '0.0.0.0', () => {
     Logger.debug(`ALL.Net server started on ${process.env.HOST_INT || '0.0.0.0'}:${process.env.PORT_CHUNITHM || 9001}`)
   })
 })()
