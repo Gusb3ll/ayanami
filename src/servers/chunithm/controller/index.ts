@@ -1,15 +1,15 @@
 import compression from 'compression'
 import express from 'express'
 
-import createSqlWrapper from '../sql'
+// import createSqlWrapper from '../sql'
 import { quirks, trace } from '../utils'
 
-import gameLogin from '../services/gameLogin'
+// import gameLogin from '../services/gameLogin'
 
-export default function chunithm(db) {
-  const wrapper = createSqlWrapper(db)
+export default function chunithm() {
+  // const wrapper = createSqlWrapper(db)
 
-  wrapper.rpc('/GameLoginApi', gameLogin)
+  // wrapper.rpc('/GameLoginApi', gameLogin)
   // wrapper.rpc('/GameLogoutApi', gameLogout)
   // wrapper.rpc('/GetGameChargeApi', getGameCharge)
   // wrapper.rpc('/GetGameEventApi', getGameEvent)
@@ -50,7 +50,7 @@ export default function chunithm(db) {
   app.use(express.json({ limit: '50mb' })) // that ought to be enough
   app.use(trace)
 
-  app.use('/ChuniServlet', wrapper)
+  app.use('/ChuniServlet')
 
   return app
 }
