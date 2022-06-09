@@ -1,6 +1,6 @@
 # ayanami
 
-Server for SEGA games
+### Server for SEGA games
 
 Current features:
 
@@ -10,3 +10,8 @@ Current features:
 Current supported games:
 
 - None
+
+## Credits
+
+- Aqua
+- MiniMe
