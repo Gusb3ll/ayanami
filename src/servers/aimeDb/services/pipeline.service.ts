@@ -6,22 +6,11 @@ import { promisify } from 'util'
 import { Decoder } from './decoder.service'
 import { Deframer } from './frame.service'
 import { Encoder } from './encoder.service'
-import type { AimeRequest } from '../interfaces/request'
-import type { AimeResponse } from '../interfaces/response'
 
 const K = Buffer.from('Copyright(C)SEGA', 'utf8')
 const pipeline = promisify(stream.pipeline)
 
-export interface Session {
-  input: AsyncIterable<AimeRequest>
-  output: {
-    write(res: AimeResponse): void
-  }
-}
-
-function doNothing() { }
-
-export function setup(socket: Socket): Session {
+export function setup(socket: Socket) {
   const input = new Decoder()
 
   pipeline(
@@ -29,7 +18,7 @@ export function setup(socket: Socket): Session {
     createDecipheriv('aes-128-ecb', K, null).setAutoPadding(false),
     new Deframer({}),
     input,
-  ).catch(doNothing)
+  ).catch(() => { })
 
   const output = new Encoder()
 
@@ -37,7 +26,7 @@ export function setup(socket: Socket): Session {
     output,
     createCipheriv('aes-128-ecb', K, null).setAutoPadding(false),
     socket,
-  ).catch(doNothing)
+  ).catch(() => { })
 
   return { input, output }
 }

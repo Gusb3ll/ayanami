@@ -1,58 +1,27 @@
-import type { Repositories } from './repo'
-import type * as Req from './interfaces/request'
-import type * as Res from './interfaces/response'
-
-function hello(
-  rep: Repositories,
-  req: Req.HelloRequest,
-): Res.HelloResponse {
-  console.log('Hello')
-
+function hello(_rep, req, _now) {
   return { type: req.type, status: 1 }
 }
 
-function campaign(
-  rep: Repositories,
-  req: Req.CampaignRequest,
-): Res.CampaignResponse {
-  console.log('Campaign stuff')
-
+function campaign(_rep, req, _now) {
   return { type: req.type, status: 1 }
 }
 
-function feliCaLookup(
-  rep: Repositories,
-  req: Req.FeliCaLookupRequest,
-): Res.FeliCaLookupResponse {
-  console.log('FeliCa access code lookup')
-
-  // Well, this access code transformation is the million dollar question eh
-  // Return a decimal representation for now.
-
+function feliCaLookup(_rep, req, _now) {
   const num = BigInt(`0x${req.idm}`)
   let accessCode = num.toString()
-
   while (accessCode.length < 20) {
     accessCode = `0${accessCode}`
   }
-
   return { type: req.type, status: 1, accessCode }
 }
 
-async function feliCaLookup2(
-  rep: Repositories,
-  req: Req.FeliCaLookup2Request,
-  now: Date,
-): Promise<Res.FeliCaLookup2Response> {
-  console.log('FeliCa access code lookup')
-
+async function feliCaLookup2(rep, req, now) {
   const num = BigInt(`0x${req.idm}`)
   let accessCode = num.toString()
 
   while (accessCode.length < 20) {
     accessCode = `0${accessCode}`
   }
-
   return {
     type: req.type,
     status: 1,
@@ -61,20 +30,14 @@ async function feliCaLookup2(
   }
 }
 
-async function unknown19(rep, req, _now) {
+async function unknown19(_rep, req, _now) {
   return {
     type: req.type,
     status: 1,
   }
 }
 
-async function lookup(
-  rep: Repositories,
-  req: Req.LookupRequest,
-  now: Date,
-): Promise<Res.LookupResponse> {
-  console.log('Mifare lookup: luid=%s', req.luid)
-
+async function lookup(rep, req, now) {
   return {
     type: req.type,
     status: 1,
@@ -83,13 +46,7 @@ async function lookup(
   }
 }
 
-async function lookup2(
-  rep: Repositories,
-  req: Req.LookupRequest2,
-  now: Date,
-): Promise<Res.LookupResponse2> {
-  console.log('FeliCa lookup: luid=%s', req.luid)
-
+async function lookup2(rep, req, now) {
   return {
     type: req.type,
     status: 1,
@@ -98,13 +55,7 @@ async function lookup2(
   }
 }
 
-async function register(
-  rep: Repositories,
-  req: Req.RegisterRequest,
-  now: Date,
-): Promise<Res.RegisterResponse> {
-  console.log('User register: luid=%s', req.luid)
-
+async function register(rep, req, now) {
   return {
     type: req.type,
     status: 1,
@@ -112,29 +63,20 @@ async function register(
   }
 }
 
-function log(
-  rep: Repositories,
-  req: Req.LogRequest,
-): Res.LogResponse {
-  console.log('Log message')
-
+function log(_rep, req, _now) {
   return { type: req.type, status: 1 }
 }
 
-export async function dispatch(
-  rep,
-  req,
-  now,
-) {
+export async function dispatch(rep, req, now) {
   switch (req.type) {
     case 'hello':
-      return hello(rep, req)
+      return hello(rep, req, now)
 
     case 'campaign':
-      return campaign(rep, req)
+      return campaign(rep, req, now)
 
     case 'felica_lookup':
-      return feliCaLookup(rep, req)
+      return feliCaLookup(rep, req, now)
 
     case 'felica_lookup2':
       return feliCaLookup2(rep, req, now)
@@ -152,7 +94,7 @@ export async function dispatch(
       return register(rep, req, now)
 
     case 'log':
-      return log(rep, req)
+      return log(rep, req, now)
 
     case 'goodbye':
       console.log('Goodbye')

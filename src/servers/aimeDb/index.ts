@@ -4,9 +4,11 @@ import { SqlRepositories } from './sql'
 import { setup } from './services/pipeline.service'
 import type { DataSource } from '../../utils/sql/api'
 
+import Logger from '../../lib/logger'
+
 function aimeDb(db: DataSource) {
   return async function (socket: Socket) {
-    console.log('Socket Connected')
+    Logger.debug('AimeDB | Socket Connected')
     const { input, output } = await setup(socket)
 
     for await (const obj of input) {
@@ -17,7 +19,7 @@ function aimeDb(db: DataSource) {
           dispatch(new SqlRepositories(txn), req, now),
         )
         if (res === undefined) {
-          console.log('Closing connection')
+          Logger.debug('AimeDB | Socket Closing')
           break
         }
         output.write(res)
@@ -28,7 +30,7 @@ function aimeDb(db: DataSource) {
       }
     }
 
-    console.log('Socket Closed')
+    Logger.debug('AimeDB | Socket Closed')
     socket.end()
   }
 }

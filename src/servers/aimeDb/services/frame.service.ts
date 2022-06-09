@@ -1,4 +1,5 @@
 import { Transform } from 'stream'
+import Logger from '../../../lib/logger'
 
 export class Deframer extends Transform {
   private state: Buffer
@@ -12,7 +13,7 @@ export class Deframer extends Transform {
     this.state = Buffer.alloc(0)
   }
 
-  _transform(chunk, encoding, callback) {
+  _transform(chunk, _encoding, callback) {
     this.state = Buffer.concat([this.state, chunk])
 
     if (this.state.length < 8) {
@@ -27,13 +28,11 @@ export class Deframer extends Transform {
 
     const len = this.state.readUInt16LE(0x0006)
 
-    if (this.state.length < len) {
-      return
-    }
+    if (this.state.length < len) { return }
 
     const frame = this.state.slice(0, len)
 
-    console.log('Recv ', frame.toString('hex'))
+    Logger.debug('Recv ', frame.toString('hex'))
 
     this.state = this.state.slice(len)
 

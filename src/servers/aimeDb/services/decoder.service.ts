@@ -1,17 +1,15 @@
 import { Transform } from 'stream'
 
-import type * as Request from '../interfaces/request'
+import Logger from '../../../lib/logger'
 
-function begin(msg: Buffer): Request.AimeRequestBase {
+function begin(msg) {
   const gameId = msg.toString('ascii', 0x000A, 0x000E)
   const keychipId = msg.toString('ascii', 0x0014, 0x001F)
-
   return { gameId, keychipId }
 }
 
-function readRegisterRequest(msg: Buffer): Request.RegisterRequest {
+function readRegisterRequest(msg) {
   const luid = msg.slice(0x0020, 0x002A).toString('hex')
-
   return {
     ...begin(msg),
     type: 'register',
@@ -19,7 +17,7 @@ function readRegisterRequest(msg: Buffer): Request.RegisterRequest {
   }
 }
 
-function readFeliCaLookupRequest(msg: Buffer): Request.FeliCaLookupRequest {
+function readFeliCaLookupRequest(msg) {
   return {
     ...begin(msg),
     type: 'felica_lookup',
@@ -28,7 +26,7 @@ function readFeliCaLookupRequest(msg: Buffer): Request.FeliCaLookupRequest {
   }
 }
 
-function readFeliCaLookupRequest2(msg: Buffer): Request.FeliCaLookup2Request {
+function readFeliCaLookupRequest2(msg) {
   return {
     ...begin(msg),
     type: 'felica_lookup2',
@@ -37,10 +35,7 @@ function readFeliCaLookupRequest2(msg: Buffer): Request.FeliCaLookup2Request {
   }
 }
 
-function readLogRequest(msg: Buffer): Request.LogRequest {
-  // idk what any of this stuff means yet
-  // field20 and field28 appear to be an aime id but that is all.
-
+function readLogRequest(msg) {
   return {
     ...begin(msg),
     type: 'log',
@@ -55,16 +50,15 @@ function readLogRequest(msg: Buffer): Request.LogRequest {
   }
 }
 
-function readCampaignRequest(msg: Buffer): Request.CampaignRequest {
+function readCampaignRequest(msg) {
   return {
     ...begin(msg),
     type: 'campaign',
   }
 }
 
-function readLookupRequest(msg: Buffer): Request.LookupRequest {
+function readLookupRequest(msg) {
   const luid = msg.slice(0x0020, 0x002A).toString('hex')
-
   return {
     ...begin(msg),
     type: 'lookup',
@@ -72,9 +66,8 @@ function readLookupRequest(msg: Buffer): Request.LookupRequest {
   }
 }
 
-function readLookupRequest2(msg: Buffer): Request.LookupRequest2 {
+function readLookupRequest2(msg) {
   const luid = msg.slice(0x0020, 0x002A).toString('hex')
-
   return {
     ...begin(msg),
     type: 'lookup2',
@@ -89,14 +82,14 @@ function unknown19Request(msg) {
   }
 }
 
-function readHelloRequest(msg: Buffer): Request.HelloRequest {
+function readHelloRequest(msg) {
   return {
     ...begin(msg),
     type: 'hello',
   }
 }
 
-function readGoodbyeRequest(_msg: Buffer): Request.GoodbyeRequest {
+function readGoodbyeRequest() {
   return {
     type: 'goodbye',
   }
@@ -124,7 +117,7 @@ export class Decoder extends Transform {
     })
   }
 
-  _transform(msg: Buffer, encoding, callback) {
+  _transform(msg: Buffer, _encoding, callback) {
     const code = msg.readUInt16LE(0x04)
     const reader = readers.get(code)
 
@@ -136,7 +129,7 @@ export class Decoder extends Transform {
 
     const obj = reader(msg)
 
-    console.log('Decode ', obj)
+    Logger.debug(`DECODER | Decode ${obj}`)
 
     return callback(null, obj)
   }
