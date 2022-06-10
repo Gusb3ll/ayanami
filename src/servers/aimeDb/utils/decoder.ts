@@ -75,7 +75,7 @@ function readLookupRequest2(msg) {
   }
 }
 
-function unknown19Request(msg) {
+function readUnknown19Request(msg) {
   return {
     ...begin(msg),
     type: 'unknown19',
@@ -105,7 +105,7 @@ readers.set(0x000B, readCampaignRequest)
 readers.set(0x000D, readRegisterRequest)
 readers.set(0x000F, readLookupRequest2)
 readers.set(0x0011, readFeliCaLookupRequest2)
-readers.set(0x0013, unknown19Request)
+readers.set(0x0013, readUnknown19Request)
 readers.set(0x0064, readHelloRequest)
 readers.set(0x0066, readGoodbyeRequest)
 
@@ -117,20 +117,11 @@ export class Decoder extends Transform {
     })
   }
 
-  _transform(msg: Buffer, _encoding, callback) {
+  _transform(msg, _encoding, callback) {
     const code = msg.readUInt16LE(0x04)
     const reader = readers.get(code)
-
-    if (reader === undefined) {
-      return callback(
-        new Error(`Unknown command code 0x${code.toString(16)}`),
-      )
-    }
-
-    const obj = reader(msg)
-
-    Logger.debug(`DECODER | Decode ${obj}`)
-
-    return callback(null, obj)
+    if (reader === undefined) { return callback(new Error(`Unknown command code 0x${code.toString(16)}`)) }
+    Logger.debug(`DECODER | Decode ${JSON.stringify(reader(msg))}`)
+    return callback(null, reader(msg))
   }
 }

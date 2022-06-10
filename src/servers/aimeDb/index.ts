@@ -1,38 +1,28 @@
-import type { Socket } from 'net'
-import { dispatch } from './handler'
-import { SqlRepositories } from './sql'
-import { setup } from './services/pipeline'
-import type { DataSource } from '../../utils/sql/api'
-
 import Logger from '../../lib/logger'
 
-function aimeDb(db: DataSource) {
-  return async function (socket: Socket) {
-    Logger.debug('AimeDB | Socket Connected')
-    const { input, output } = await setup(socket)
+import { setup } from './utils/pipeline'
+import { handle } from './controller/aimedb'
 
-    for await (const obj of input) {
-      try {
-        const now = new Date()
-        const req = obj
-        const res = await db.transaction(txn =>
-          dispatch(new SqlRepositories(txn), req, now),
-        )
-        if (res === undefined) {
-          Logger.debug('AimeDB | Socket Closing')
-          break
-        }
-        output.write(res)
-      }
-      catch (err) {
-        console.error(err)
+export default async function aimedb(stream) {
+  const { input, output } = setup(stream)
+
+  for await (const obj of input) {
+    try {
+      const now = new Date()
+      const req = obj
+      const res = handle(req, now)
+      if (res === undefined) {
+        Logger.debug('Socket closing')
         break
       }
+      output.write(res)
     }
-
-    Logger.debug('AimeDB | Socket Closed')
-    socket.end()
+    catch (err) {
+      Logger.error(`Socket Error ${err}`)
+      break
+    }
   }
-}
 
-export default aimeDb
+  Logger.debug('Socket closed')
+  stream.end()
+}

@@ -1,4 +1,4 @@
-export function quirks(req, res, next) {
+export function quirks(req, _res, next) {
   if (req.headers['x-debug'] === undefined) {
     req.headers['accept-encoding'] = 'deflate'
   }

@@ -1,5 +1,4 @@
 import { createCipheriv, createDecipheriv } from 'crypto'
-import type { Socket } from 'net'
 import * as stream from 'stream'
 import { promisify } from 'util'
 
@@ -10,11 +9,11 @@ import { Deframer } from './frame'
 const K = Buffer.from('Copyright(C)SEGA', 'utf8')
 const pipeline = promisify(stream.pipeline)
 
-export function setup(socket: Socket) {
+export function setup(stream) {
   const input = new Decoder()
 
   pipeline(
-    socket,
+    stream,
     createDecipheriv('aes-128-ecb', K, null).setAutoPadding(false),
     new Deframer({}),
     input,
@@ -25,7 +24,7 @@ export function setup(socket: Socket) {
   pipeline(
     output,
     createCipheriv('aes-128-ecb', K, null).setAutoPadding(false),
-    socket,
+    stream,
   ).catch(() => { })
 
   return { input, output }

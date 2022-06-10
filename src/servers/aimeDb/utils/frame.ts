@@ -1,4 +1,5 @@
 import { Transform } from 'stream'
+
 import Logger from '../../../lib/logger'
 
 export class Deframer extends Transform {

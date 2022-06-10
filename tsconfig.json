@@ -8,7 +8,7 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "outDir": "./bin/",
-    "strictNullChecks": true,
+    "strictNullChecks": false,
     "target": "esnext",
     "typeRoots": [
       "./node_modules/@types",

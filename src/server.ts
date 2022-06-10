@@ -5,20 +5,18 @@ import https from 'https'
 import { readFileSync } from 'fs'
 
 import Logger from './lib/logger'
-import { openSqlite } from './utils/sql'
 
-import aimeDb from './servers/aimeDb'
+import aimedb from './servers/aimedb'
 import allNet from './servers/allNet'
 import billing from './servers/billing'
 
-import chunithm from './servers/chunithm/controller'
+import chunithm from './servers/chunithm'
 
 const tls = { cert: readFileSync('pki/server.pem'), key: readFileSync('pki/server.key') };
 
 (async () => {
-  const db = openSqlite('./db.sqlite3')
-  net.createServer(aimeDb(db)).listen(parseInt(process.env.PORT_AIMEDB!) || 22345, process.env.HOST_INT || '0.0.0.0', () => {
-    Logger.debug(`AimeDB server started on ${process.env.HOST_INT || '0.0.0.0'}:${process.env.PORT_AIMEDB || 22345}`)
+  net.createServer(aimedb).listen(parseInt(process.env.PORT_AIMEDB!) || 22345, process.env.HOST_INT || '0.0.0.0', () => {
+    Logger.debug(`Aime Database server started on ${process.env.HOST_INT || '0.0.0.0'}:${process.env.PORT_AIMEDB || 22345}`)
   })
   http.createServer(allNet).listen(parseInt(process.env.PORT_ALLNET!) || 80, process.env.HOST_INT || '0.0.0.0', () => {
     Logger.debug(`ALL.Net server started on ${process.env.HOST_INT || '0.0.0.0'}:${process.env.PORT_ALLNET || 80}`)

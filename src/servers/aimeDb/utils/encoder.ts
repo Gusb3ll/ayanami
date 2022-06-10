@@ -1,4 +1,5 @@
 import { Transform } from 'stream'
+
 import Logger from '../../../lib/logger'
 
 const registerLevels = new Map()
@@ -24,7 +25,7 @@ export class Encoder extends Transform {
   }
 
   _transform(msg, _encoder, callback) {
-    Logger.debug(`ENCODER | Encode ${msg}`)
+    Logger.debug(`ENCODER | Encode ${JSON.stringify(msg)}`)
 
     let buf: Buffer
 
@@ -78,8 +79,8 @@ export class Encoder extends Transform {
         break
 
       case 'unknown19':
-        buf = begin(0x0013)
-        buf.writeUInt16LE(0x0006, 0x0004)
+        buf = begin(0x0040)
+        buf.writeUInt16LE(0x0014, 0x0004)
         buf.writeUInt16LE(msg.status, 0x0008)
         break
 
@@ -94,6 +95,14 @@ export class Encoder extends Transform {
         buf = begin(0x0020)
         buf.writeUInt16LE(0x000A, 0x0004)
         buf.writeUInt16LE(msg.status, 0x0008)
+        break
+
+      case 'touch':
+        buf = begin(0x0050)
+        buf.writeUInt16LE(0x000E, 0x0004)
+        buf.writeUInt16LE(msg.status, 0x0008)
+        buf.writeUInt16LE(0x0006F, 0x0020)
+        buf.writeUInt16LE(0x0001, 0x0024)
         break
 
       default:
