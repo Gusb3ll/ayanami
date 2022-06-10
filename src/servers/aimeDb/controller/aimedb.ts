@@ -1,6 +1,6 @@
-// import { PrismaClient } from '@prisma/client'
+import { PrismaClient } from '@prisma/client'
 
-// const prisma = new PrismaClient()
+const prisma = new PrismaClient()
 
 function hello(req) {
   return { type: req.type, status: 1 }
@@ -19,23 +19,41 @@ function feliCaLookup(req) {
   return { type: req.type, status: 1, accessCode }
 }
 
-function feliCaLookup2() {
-  return null
+async function feliCaLookup2(req, now) {
+  const { id, ext_id } = await prisma.aime_player.findUnique({ where: { luid: req.luid }, select: { id: true, ext_id: true } })
+  await prisma.aime_player.update({ where: { id }, data: { access_time: now } })
+  return {
+    type: req.type,
+    status: 1,
+    aimeId: ext_id,
+  }
 }
 
 function unknown19(req) {
   return { type: req.type, status: 1 }
 }
 
-function lookup() {
-  return null
+async function lookup(req) {
+  const aimeId = await prisma.aime_player.findUnique({ where: { luid: req.luid }, select: { ext_id: true } })
+  return {
+    type: req.type,
+    status: 1,
+    aimeId,
+    registerLevel: 'none',
+  }
 }
 
-function lookup2() {
-  return null
+async function lookup2(req) {
+  const aimeId = await prisma.aime_player.findUnique({ where: { luid: req.luid }, select: { ext_id: true } })
+  return {
+    type: req.type,
+    status: 1,
+    aimeId,
+    registerLevel: 'none',
+  }
 }
 
-function register() {
+async function register() {
   return null
 }
 
@@ -47,7 +65,7 @@ function touch(req) {
   return { type: req.type, status: 1 }
 }
 
-export function handle(req, _now) {
+export function handle(req, now) {
   switch (req.type) {
     case 'hello':
       return hello(req)
@@ -59,16 +77,16 @@ export function handle(req, _now) {
       return feliCaLookup(req)
 
     case 'felica_lookup2':
-      return feliCaLookup2()
+      return feliCaLookup2(req, now)
 
     case 'unknown19':
       return unknown19(req)
 
     case 'lookup':
-      return lookup()
+      return lookup(req)
 
     case 'lookup2':
-      return lookup2()
+      return lookup2(req)
 
     case 'register':
       return register()
