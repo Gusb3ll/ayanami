@@ -10,11 +10,13 @@ import aimedb from './servers/aimedb'
 import allNet from './servers/allNet'
 import billing from './servers/billing'
 
-import chunithm from './servers/chunithm'
+import chusan from './servers/chusan'
+// import chunithm from './servers/chunithm'
 
 const tls = { cert: readFileSync('pki/server.pem'), key: readFileSync('pki/server.key') };
 
 (async () => {
+  // Main service
   net.createServer(aimedb).listen(parseInt(process.env.PORT_AIMEDB!) || 22345, process.env.HOST_INT || '0.0.0.0', () => {
     Logger.debug(`Aime Database server started on ${process.env.HOST_INT || '0.0.0.0'}:${process.env.PORT_AIMEDB || 22345}`)
   })
@@ -24,8 +26,12 @@ const tls = { cert: readFileSync('pki/server.pem'), key: readFileSync('pki/serve
   https.createServer(tls, billing).listen(parseInt(process.env.PORT_BILLING!) || 8443, process.env.HOST_INT || '0.0.0.0', () => {
     Logger.debug(`Billing server started on ${process.env.HOST_INT || '0.0.0.0'}:${process.env.PORT_BILLING || 8443}`)
   })
-  http.createServer(chunithm).listen(parseInt(process.env.PORT_CHUNITHM!) || 9001, process.env.HOST_INT || '0.0.0.0', () => {
-    Logger.debug(`ALL.Net server started on ${process.env.HOST_INT || '0.0.0.0'}:${process.env.PORT_CHUNITHM || 9001}`)
+  // Games
+  http.createServer(chusan).listen(parseInt(process.env.PORT_CHUSAN!) || 9001, process.env.HOST_INT || '0.0.0.0', () => {
+    Logger.debug(`Chusan server started on ${process.env.HOST_INT || '0.0.0.0'}:${process.env.PORT_CHUSAN || 9001}`)
   })
+  // http.createServer(chunithm).listen(parseInt(process.env.PORT_CHUNITHM!) || 9002, process.env.HOST_INT || '0.0.0.0', () => {
+  //   Logger.debug(`Chunithm server started on ${process.env.HOST_INT || '0.0.0.0'}:${process.env.PORT_CHUNITHM || 9002}`)
+  // })
 })()
 

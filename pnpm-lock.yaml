@@ -2,7 +2,6 @@ lockfileVersion: 5.4
 
 specifiers:
   '@antfu/eslint-config': ^0.25.1
-  '@decafcode/sqlite': ^2.4.0
   '@prisma/client': ^3.15.0
   '@types/express': ^4.17.13
   '@types/morgan': ^1.9.3
@@ -13,16 +12,12 @@ specifiers:
   dotenv-cli: ^5.1.0
   eslint: ^8.17.0
   express: ^4.18.1
-  express-ws: ^5.0.2
   iconv: ^3.0.1
   iconv-lite: ^0.6.3
   morgan: ^1.10.0
   nodemon: ^2.0.16
-  prettier: ^2.6.2
   prisma: ^3.15.0
   raw-body: ^2.5.1
-  snake-case: ^3.0.4
-  sql-bricks-postgres: ^0.6.0
   ts-node: ^10.8.1
   typescript: ^4.7.3
   winston: ^3.7.2
@@ -30,7 +25,6 @@ specifiers:
 
 devDependencies:
   '@antfu/eslint-config': 0.25.1_ud6rd4xtew5bv4yhvkvu24pzm4
-  '@decafcode/sqlite': 2.4.0
   '@prisma/client': 3.15.0_prisma@3.15.0
   '@types/express': 4.17.13
   '@types/morgan': 1.9.3
@@ -41,16 +35,12 @@ devDependencies:
   dotenv-cli: 5.1.0
   eslint: 8.17.0
   express: 4.18.1
-  express-ws: 5.0.2_express@4.18.1
   iconv: 3.0.1
   iconv-lite: 0.6.3
   morgan: 1.10.0
   nodemon: 2.0.16
-  prettier: 2.6.2
   prisma: 3.15.0
   raw-body: 2.5.1
-  snake-case: 3.0.4
-  sql-bricks-postgres: 0.6.0
   ts-node: 10.8.1_f5eqjuxkorpjvs4z7mviievvou
   typescript: 4.7.3
   winston: 3.7.2
@@ -198,13 +188,6 @@ packages:
       colorspace: 1.1.4
       enabled: 2.0.0
       kuler: 2.0.0
-    dev: true
-
-  /@decafcode/sqlite/2.4.0:
-    resolution: {integrity: sha512-n7/0Fbf5ZnShTyY4lUi74nqVZGf5aWg5OpX0v3MsLQ+uI8YiN6MqobGkOyQwqDW+6lXcBoBTOJUa3XegX08F/w==}
-    requiresBuild: true
-    dependencies:
-      node-gyp-build: 4.4.0
     dev: true
 
   /@eslint/eslintrc/1.3.0:
@@ -1127,13 +1110,6 @@ packages:
       domhandler: 4.3.1
     dev: true
 
-  /dot-case/3.0.4:
-    resolution: {integrity: sha512-Kv5nKlh6yRrdrGvxeJ2e5y2eRUpkUosIW4A2AS38zwSz27zu7ufDwQPi5Jhs3XAlGNetl3bmnGhQsMtkKJnj3w==}
-    dependencies:
-      no-case: 3.0.4
-      tslib: 2.4.0
-    dev: true
-
   /dot-prop/5.3.0:
     resolution: {integrity: sha512-QM8q3zDe58hqUqjraQOmzZ1LIH9SWQJTlEKCH4kJ2oQvLZk7RbQXvtDM2XEq3fwkV9CCvvH4LA0AV+ogFsBM2Q==}
     engines: {node: '>=8'}
@@ -1632,19 +1608,6 @@ packages:
   /etag/1.8.1:
     resolution: {integrity: sha512-aIL5Fx7mawVa300al2BnEE4iNvo1qETxLrPI/o05L7z6go7fCw1J6EQmbK4FmJ2AS7kgVF/KEZWufBfdClMcPg==}
     engines: {node: '>= 0.6'}
-    dev: true
-
-  /express-ws/5.0.2_express@4.18.1:
-    resolution: {integrity: sha512-0uvmuk61O9HXgLhGl3QhNSEtRsQevtmbL94/eILaliEADZBHZOQUAiHFrGPrgsjikohyrmSG5g+sCfASTt0lkQ==}
-    engines: {node: '>=4.5.0'}
-    peerDependencies:
-      express: ^4.0.0 || ^5.0.0-alpha.1
-    dependencies:
-      express: 4.18.1
-      ws: 7.5.8
-    transitivePeerDependencies:
-      - bufferutil
-      - utf-8-validate
     dev: true
 
   /express/4.18.1:
@@ -2394,12 +2357,6 @@ packages:
       js-tokens: 4.0.0
     dev: true
 
-  /lower-case/2.0.2:
-    resolution: {integrity: sha512-7fm3l3NAF9WfN6W3JOmf5drwpVqX78JtoGJ3A6W0a6ZnldM41w2fV5D490psKFTpMds8TJse/eHLFFsNHHjHgg==}
-    dependencies:
-      tslib: 2.4.0
-    dev: true
-
   /lowercase-keys/1.0.1:
     resolution: {integrity: sha512-G2Lj61tXDnVFFOi8VZds+SoQjtQC3dgokKdDG2mTm1tx4m50NUHBOZSBwQQHyy0V12A0JTG4icfZQH+xPyh8VA==}
     engines: {node: '>=0.10.0'}
@@ -2550,18 +2507,6 @@ packages:
   /negotiator/0.6.3:
     resolution: {integrity: sha512-+EUsqGPLsM+j/zdChZjsnX51g4XrHFOIXwfnCVPGlQk/k5giakcKsuxCObBRu6DSm9opw/O6slWbJdghQM4bBg==}
     engines: {node: '>= 0.6'}
-    dev: true
-
-  /no-case/3.0.4:
-    resolution: {integrity: sha512-fgAN3jGAh+RoxUGZHTSOLJIqUc2wmoBwGR4tbpNAKmmovFoWq0OdRkb0VkldReO2a2iBT/OEulG9XSUc10r3zg==}
-    dependencies:
-      lower-case: 2.0.2
-      tslib: 2.4.0
-    dev: true
-
-  /node-gyp-build/4.4.0:
-    resolution: {integrity: sha512-amJnQCcgtRVw9SvoebO3BKGESClrfXGCUTX9hSn1OuGQTQBOZmVd0Z0OlecpuRksKvbsUqALE8jls/ErClAPuQ==}
-    hasBin: true
     dev: true
 
   /nodemon/2.0.16:
@@ -2860,12 +2805,6 @@ packages:
   /prepend-http/2.0.0:
     resolution: {integrity: sha512-ravE6m9Atw9Z/jjttRUZ+clIXogdghyZAuWJ3qEzjT+jI/dL1ifAqhZeC5VHzQp1MSt1+jxKkFNemj/iO7tVUA==}
     engines: {node: '>=4'}
-    dev: true
-
-  /prettier/2.6.2:
-    resolution: {integrity: sha512-PkUpF+qoXTqhOeWL9fu7As8LXsIUZ1WYaJiY/a7McAQzxjk82OF0tibkFXVCDImZtWxbvojFjerkiLb0/q8mew==}
-    engines: {node: '>=10.13.0'}
-    hasBin: true
     dev: true
 
   /prisma/3.15.0:
@@ -3189,13 +3128,6 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /snake-case/3.0.4:
-    resolution: {integrity: sha512-LAOh4z89bGQvl9pFfNF8V146i7o7/CqFPbqzYgP+yYzDIDeS9HaNFtXABamRW+AQzEVODcvE79ljJ+8a9YSdMg==}
-    dependencies:
-      dot-case: 3.0.4
-      tslib: 2.4.0
-    dev: true
-
   /spdx-correct/3.1.1:
     resolution: {integrity: sha512-cOYcUWwhCuHCXi49RhFRCyJEK3iPj1Ziz9DpViV3tbZOwXD49QzIN3MpOLJNxh2qwq2lJJZaKMVw9qNi4jTC0w==}
     dependencies:
@@ -3216,17 +3148,6 @@ packages:
 
   /spdx-license-ids/3.0.11:
     resolution: {integrity: sha512-Ctl2BrFiM0X3MANYgj3CkygxhRmr9mi6xhejbdO960nF6EDJApTYpn0BQnDKlnNBULKiCN1n3w9EBkHK8ZWg+g==}
-    dev: true
-
-  /sql-bricks-postgres/0.6.0:
-    resolution: {integrity: sha512-JbStbgWRWSV9pOnJLjBUzgFT4z3n2e90IyZsCCMLa/bYBg3uIyd8Uawk567gt4b25TRKDdX91+ru5SneCqeMgA==}
-    dependencies:
-      sql-bricks: 3.0.0
-      underscore: 1.13.4
-    dev: true
-
-  /sql-bricks/3.0.0:
-    resolution: {integrity: sha512-P9fXYWdPFOcU2uQr7hwzNa0m6qOjMSV6wmo3DPk1Nzxh9rZWyjgbFaRji41EMV1uHps4SCgwa+Cdv0tUJ+mySw==}
     dev: true
 
   /stack-trace/0.0.10:
@@ -3410,10 +3331,6 @@ packages:
     resolution: {integrity: sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==}
     dev: true
 
-  /tslib/2.4.0:
-    resolution: {integrity: sha512-d6xOpEDfsi2CZVlPQzGeux8XMwLT9hssAsaPYExaQMuYskwb+x1x7J371tWlbBdWHroy99KnVB6qIkUbs5X3UQ==}
-    dev: true
-
   /tsutils/3.21.0_typescript@4.7.3:
     resolution: {integrity: sha512-mHKK3iUXL+3UF6xL5k0PEhKRUBKPBCv/+RkEOpjRWxxx27KKRBmmA60A9pgOUvMi8GKhRMPEmjBRPzs2W7O1OA==}
     engines: {node: '>= 6'}
@@ -3477,10 +3394,6 @@ packages:
 
   /undefsafe/2.0.5:
     resolution: {integrity: sha512-WxONCrssBM8TSPRqN5EmsjVrsv4A8X12J4ArBiiayv3DyyG3ZlIg6yysuuSYdZsVz3TKcTg2fd//Ujd4CHV1iA==}
-    dev: true
-
-  /underscore/1.13.4:
-    resolution: {integrity: sha512-BQFnUDuAQ4Yf/cYY5LNrK9NCJFKriaRbD9uR1fTeXnBeoa97W0i41qkZfGO9pSo8I5KzjAcSY2XYtdf0oKd7KQ==}
     dev: true
 
   /unique-string/2.0.0:
@@ -3656,19 +3569,6 @@ packages:
       is-typedarray: 1.0.0
       signal-exit: 3.0.7
       typedarray-to-buffer: 3.1.5
-    dev: true
-
-  /ws/7.5.8:
-    resolution: {integrity: sha512-ri1Id1WinAX5Jqn9HejiGb8crfRio0Qgu8+MtL36rlTA6RLsMdWt1Az/19A2Qij6uSHUMphEFaTKa4WG+UNHNw==}
-    engines: {node: '>=8.3.0'}
-    peerDependencies:
-      bufferutil: ^4.0.1
-      utf-8-validate: ^5.0.2
-    peerDependenciesMeta:
-      bufferutil:
-        optional: true
-      utf-8-validate:
-        optional: true
     dev: true
 
   /xdg-basedir/4.0.0:
