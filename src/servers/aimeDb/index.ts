@@ -1,6 +1,6 @@
 import Logger from '../../lib/logger'
 
-import { setup } from './utils/pipeline'
+import { setup } from './services/pipeline'
 import { handle } from './controller/aimedb'
 
 export default async function aimedb(stream) {

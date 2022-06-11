@@ -20,6 +20,7 @@ function feliCaLookup(req) {
 }
 
 async function feliCaLookup2(req, now) {
+  // ! to check
   const { id, ext_id } = await prisma.aime_player.findUnique({ where: { luid: req.luid }, select: { id: true, ext_id: true } })
   await prisma.aime_player.update({ where: { id }, data: { access_time: now } })
   return {
@@ -34,6 +35,7 @@ function unknown19(req) {
 }
 
 async function lookup(req) {
+  // ! to check
   const aimeId = await prisma.aime_player.findUnique({ where: { luid: req.luid }, select: { ext_id: true } })
   return {
     type: req.type,
@@ -44,6 +46,7 @@ async function lookup(req) {
 }
 
 async function lookup2(req) {
+  // ! to check
   const aimeId = await prisma.aime_player.findUnique({ where: { luid: req.luid }, select: { ext_id: true } })
   return {
     type: req.type,
