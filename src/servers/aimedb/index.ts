@@ -1,9 +1,9 @@
 import Logger from '../../lib/logger'
 
-import { setup } from './services/pipeline'
+import { setup } from './utils/pipeline'
 import { handle } from './controller/aimedb'
 
-export default async function aimedb(stream) {
+export default async function app(stream) {
   const { input, output } = setup(stream)
 
   for await (const obj of input) {

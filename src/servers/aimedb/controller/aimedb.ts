@@ -1,109 +1,52 @@
-import { PrismaClient } from '@prisma/client'
-
-const prisma = new PrismaClient()
-
-function hello(req) {
-  return { type: req.type, status: 1 }
-}
-
-function campaign(req) {
-  return { type: req.type, status: 1 }
-}
-
-function feliCaLookup(req) {
-  const num = BigInt(`0x${req.idm}`)
-  let accessCode = num.toString()
-  while (accessCode.length < 20) {
-    accessCode = `0${accessCode}`
-  }
-  return { type: req.type, status: 1, accessCode }
-}
-
-async function feliCaLookup2(req, now) {
-  // ! to check
-  const { id, ext_id } = await prisma.aime_player.findUnique({ where: { luid: req.luid }, select: { id: true, ext_id: true } })
-  await prisma.aime_player.update({ where: { id }, data: { access_time: now } })
-  return {
-    type: req.type,
-    status: 1,
-    aimeId: ext_id,
-  }
-}
-
-function unknown19(req) {
-  return { type: req.type, status: 1 }
-}
-
-async function lookup(req) {
-  // ! to check
-  const aimeId = await prisma.aime_player.findUnique({ where: { luid: req.luid }, select: { ext_id: true } })
-  return {
-    type: req.type,
-    status: 1,
-    aimeId,
-    registerLevel: 'none',
-  }
-}
-
-async function lookup2(req) {
-  // ! to check
-  const aimeId = await prisma.aime_player.findUnique({ where: { luid: req.luid }, select: { ext_id: true } })
-  return {
-    type: req.type,
-    status: 1,
-    aimeId,
-    registerLevel: 'none',
-  }
-}
-
-async function register() {
-  return null
-}
-
-function log(req) {
-  return { type: req.type, status: 1 }
-}
-
-function touch(req) {
-  return { type: req.type, status: 1 }
-}
+import aimedbService from '../services'
 
 export function handle(req, now) {
   switch (req.type) {
-    case 'hello':
-      return hello(req)
-
-    case 'campaign':
-      return campaign(req)
-
+    // 0x0001
     case 'felica_lookup':
-      return feliCaLookup(req)
+      return aimedbService.feliCaLookup(req)
 
-    case 'felica_lookup2':
-      return feliCaLookup2(req, now)
-
-    case 'unknown19':
-      return unknown19(req)
-
+    // 0x0004
     case 'lookup':
-      return lookup(req)
+      return aimedbService.lookup(req)
 
-    case 'lookup2':
-      return lookup2(req)
-
+    // 0x0005
     case 'register':
-      return register()
+      return aimedbService.register(req, now)
 
+    // 0x0009
     case 'log':
-      return log(req)
+      return aimedbService.log()
 
+    // 0x000b
+    case 'campaign':
+      return aimedbService.campaign()
+
+    // 0x000d
     case 'touch':
-      return touch(req)
+      return aimedbService.touch()
 
+    // 0x000f
+    case 'lookup2':
+      return aimedbService.lookup2(req)
+
+    // 0x0011
+    case 'felica_lookup2':
+      return aimedbService.feliCaLookup2(req)
+
+    // 0x0013
+    case 'unknown19':
+      return aimedbService.unknown19()
+
+    // 0x0064
+    case 'hello':
+      return aimedbService.hello()
+
+    // 0x0066
     case 'goodbye':
-      return undefined
+      return aimedbService.goodbye()
 
     default:
-      throw new Error('Unimplemented handler')
+      throw new Error('🚨 Unimplemented handler 🚨')
   }
 }

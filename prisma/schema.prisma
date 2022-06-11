@@ -6,3 +6,32 @@ datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
 }
+
+//! REFERENCE FROM AQUA
+
+//? SEGA
+
+model SegaCard {
+  id             Int       @id      @default(autoincrement())
+  extId          BigInt    @unique  // AimeId
+  luid           String    @unique
+  registerTime   DateTime
+  accessTime     DateTime
+
+  @@map("sega_card")
+}
+
+model SegaGameVersion {
+  uuid          String  @id
+  romVersion    String
+  dataVersion   String
+  lastTime      DateTime
+
+  @@map("sega_game_version")
+}
+
+model ServerPropertyEntry {
+  id            BigInt  @id
+  propertyKey   String  @unique
+  propertyValue String
+}
