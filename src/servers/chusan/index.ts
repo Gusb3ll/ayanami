@@ -14,6 +14,6 @@ app.use(compression({ threshold: 0 }))
 app.use(express.json({ limit: '50mb' })) // that ought to be enough
 app.use(trace)
 
-app.use('/ChuniServlet', chusanRouter)
+app.use('/ChusanServlet/ChuniServlet', chusanRouter)
 
 export default app

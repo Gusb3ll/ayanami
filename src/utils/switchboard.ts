@@ -26,10 +26,10 @@ startupHosts.set('SDDF', `${process.env.HOST_EXT}:${PORT_IDZ.USERDB.TCP}`)
 const startupUris = new Map<string, string>()
 
 // Chunithm Paradise Lost and below
-startupUris.set('SDBT', `http://${process.env.HOST_EXT}:${process.env.PORT_CHUNITHM}/`)
+startupUris.set('SDBT', `http://${process.env.HOST_EXT}:${process.env.PORT_CHUNITHM}/ChuniServlet/`)
 
 // Chunithm New and above
-startupUris.set('SDHD', `http://${process.env.HOST_EXT}:${process.env.PORT_CHUSAN}/`)
+startupUris.set('SDHD', `http://${process.env.HOST_EXT}:${process.env.PORT_CHUSAN}/ChusanServlet/`)
 
 export function startupHost(model: string): string {
   const val = startupHosts.get(model)

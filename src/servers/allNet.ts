@@ -17,6 +17,10 @@ app.use(compression())
 app.use(express.json())
 app.use(morganMiddleware)
 
+app.get('/', (req: Request, res: Response) => {
+  res.status(200).json({ message: 'I love loli - Gusbell' })
+})
+
 app.use('/sys/servlet/PowerOn', async (req: Request, res: Response, next: NextFunction) => {
   try {
     if (req.method !== 'POST') { res.status(405).json({ error: 'Method Not Allowed' }) }
@@ -49,14 +53,20 @@ app.use('/sys/servlet/PowerOn', async (req: Request, res: Response, next: NextFu
   }
 })
 
+app.post('/sys/servlet/DownloadOrder', (_req: Request, _res: Response) => {
+  // ! NOT IMPLEMENT YET
+  return null
+})
+
+// PowerOnResponseV3 from aqua
 app.post('/sys/servlet/PowerOn', (req: Request, res: Response) => {
   try {
     const dateAdjusted = addHours(new Date(), -hourDelta)
     const isoStr = `${dateAdjusted.toISOString().substring(0, 19)}Z`
     const resParams = {
       stat: 1,
-      host: startupHost(req.body.game_id),
       uri: startupUri(req.body.game_id),
+      host: startupHost(req.body.game_id),
       place_id: '123',
       name: process.env.SHOP_NAME,
       nickname: process.env.SHOP_NAME,
@@ -65,7 +75,7 @@ app.post('/sys/servlet/PowerOn', (req: Request, res: Response) => {
       region_name1: 'X',
       region_name2: 'Y',
       region_name3: 'Z',
-      country: process.env.SHOP_REGION,
+      country: process.env.SHOP_REGION || 'JPN',
       allnet_id: '456',
       client_timezone: '+0900',
       utc_time: isoStr,
