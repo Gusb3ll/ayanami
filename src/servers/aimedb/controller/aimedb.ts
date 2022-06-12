@@ -1,6 +1,6 @@
 import aimedbService from '../services'
 
-export function handle(req, now) {
+export default function aimedbController(req) {
   switch (req.type) {
     // 0x0001
     case 'felica_lookup':
@@ -12,7 +12,7 @@ export function handle(req, now) {
 
     // 0x0005
     case 'register':
-      return aimedbService.register(req, now)
+      return aimedbService.register(req)
 
     // 0x0009
     case 'log':

@@ -1,5 +1,3 @@
 export default function goodbye() {
-  return {
-    type: 'goodbye',
-  }
+  return undefined
 }

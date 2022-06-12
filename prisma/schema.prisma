@@ -35,3 +35,29 @@ model ServerPropertyEntry {
   propertyKey   String  @unique
   propertyValue String
 }
+
+//? Chusan (Chunithm New & New Plus)
+
+model ChusanGameCharge {
+  id            Int       @id       @default(autoincrement())
+  orderId       Int
+  chargeId      Int       @unique
+  price         Int
+  startDate     DateTime
+  endDate       DateTime
+  salePrice     Int
+  saleStartDate DateTime
+  saleEndDate   DateTime
+
+  @@map("chusan_game_charge")
+}
+
+model ChusanGameEvent {
+  id           Int       @id       @default(autoincrement())
+  type         String
+  startDate    DateTime
+  endDate      DateTime
+  enable       Boolean
+
+  @@map("chusan_game_event")
+}

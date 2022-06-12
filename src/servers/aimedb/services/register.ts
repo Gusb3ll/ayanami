@@ -1,6 +1,7 @@
 import prisma from './db'
 
-export default async function register(req, now) {
+export default async function register(req) {
+  const now = new Date()
   let extId = Math.floor(Math.random() * 1000000)
   while (await prisma.segaCard.findUnique({ where: { extId } })) {
     extId = Math.floor(Math.random() * 1000000)
