@@ -27,7 +27,7 @@ export default function getGameSetting() {
       udpHolePunchUri: `http://${process.env.HOST_EXT}:${process.env.PORT_CHUSAN}/ChusanServlet/`,
       reflectorUri: `http://${process.env.HOST_EXT}:${process.env.PORT_CHUSAN}/ChusanServlet/`,
     },
-    isAou: false,
     isDumpUpload: false,
+    isAou: false,
   }
 }

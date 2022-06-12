@@ -12,36 +12,38 @@ datasource db {
 //? SEGA
 
 model SegaCard {
-  id             Int       @id      @default(autoincrement())
-  extId          BigInt    @unique  // AimeId
-  luid           String    @unique
-  registerTime   DateTime
-  accessTime     DateTime
+  id              BigInt             @id      @default(autoincrement())
+  extId           BigInt             @unique // AimeId
+  luid            String             @unique
+  registerTime    DateTime
+  accessTime      DateTime
+
+  ChusanUserData  ChusanUserData?
 
   @@map("sega_card")
 }
 
 model SegaGameVersion {
-  uuid          String  @id
-  romVersion    String
-  dataVersion   String
-  lastTime      DateTime
+  uuid        String   @id
+  romVersion  String
+  dataVersion String
+  lastTime    DateTime
 
   @@map("sega_game_version")
 }
 
 model ServerPropertyEntry {
-  id            BigInt  @id
-  propertyKey   String  @unique
+  id            BigInt @id
+  propertyKey   String @unique
   propertyValue String
 }
 
 //? Chusan (Chunithm New & New Plus)
 
 model ChusanGameCharge {
-  id            Int       @id       @default(autoincrement())
+  id            Int      @id @default(autoincrement())
   orderId       Int
-  chargeId      Int       @unique
+  chargeId      Int      @unique
   price         Int
   startDate     DateTime
   endDate       DateTime
@@ -53,11 +55,134 @@ model ChusanGameCharge {
 }
 
 model ChusanGameEvent {
-  id           Int       @id       @default(autoincrement())
-  type         String
-  startDate    DateTime
-  endDate      DateTime
-  enable       Boolean
+  id        Int      @id @default(autoincrement())
+  type      String
+  startDate DateTime
+  endDate   DateTime
+  enable    Boolean
 
   @@map("chusan_game_event")
+}
+
+model ChusanUserData {
+  id                           BigInt   @id @default(autoincrement())
+  username                     String
+  level                        Int
+  reincarnationNum             Int
+  exp                          String
+  point                        BigInt
+  totalPoint                   BigInt
+  playCount                    Int
+  multiPlayCount               Int
+  playerRating                 Int
+  highestRating                Int
+  nameplateId                  Int
+  frameId                      Int
+  characterId                  Int
+  trophyId                     Int
+  playedTutorialBit            Int
+  firstTutorialCancelNum       Int
+  masterTutorialCancelNum      Int
+  totalMapNum                  Int
+  totalHiScore                 BigInt
+  totalBasicHighScore          BigInt
+  totalAdvancedHighScore       BigInt
+  totalExpertHighScore         BigInt
+  totalMasterHighScore         BigInt
+  totalUltimaHighScore         BigInt
+  eventWatchedDate             DateTime
+  friendCount                  Int
+  firstGameId                  String
+  firstRomVersion              String
+  firstDataVersion             String
+  firstPlayDate                DateTime
+  lastGameId                   String
+  lastRomVersion               String
+  lastDataVersion              String
+  lastLoginDate                DateTime
+  lastPlayDate                 DateTime
+  lastPlaceId                  Int
+  lastPlaceName                String
+  lastRegionId                 Int
+  lastRegionName               String
+  lastAllNetId                 String
+  lastClientId                 String
+  lastCountryCode              String
+  userNameEx                   String
+  compatibleCmVersion          String
+  medal                        Int
+  mapIconId                    Int
+  voiceId                      Int
+  avatarWear                   Int
+  avatarHead                   Int
+  avatarFace                   Int
+  avatarSkin                   Int
+  avatarItem                   Int
+  avatarFront                  Int
+  avatarBack                   Int
+  classEmblemBase              Int
+  classEmblemMedal             Int
+  StockedGridCount             Int
+  exMapLoopCount               Int
+  netBattlePlayCount           Int
+  netBattleWinCount            Int
+  netBattleLoseCount           Int
+  netBattleConsecutiveWinCount Int
+  charaIllustId                Int
+  skillId                      Int
+  overPowerPoint               Int
+  overPowerRate                Int
+  overPowerLowerRank           Int
+  avatarPoint                  Int
+  battleRankId                 Int
+  battleRankPoint              Int
+  eliteRankPoint               Int
+  netBattle1stCount            Int
+  netBattle2ndCount            Int
+  netBattle3rdCount            Int
+  netBattle4thCount            Int
+  netBattleCorrection          Int
+  netBattleErrCnt              Int
+  netBattleHostErrCnt          Int
+  battleRewardStatus           Int
+  battleRewardIndex            Int
+  battleRewardCount            Int
+  ext1                         Int
+  ext2                         Int
+  ext3                         Int
+  ext4                         Int
+  ext5                         Int
+  ext6                         Int
+  ext7                         Int
+  ext8                         Int
+  ext9                         Int
+  ext10                        Int
+  extStr1                      String
+  extStr2                      String
+  extLong1                     BigInt
+  extLong2                     BigInt
+  rankUpChallengeResults       String
+  isNetBattleHost              Boolean
+  netBattleEndState            Int
+  cardId                       BigInt
+  card                         SegaCard @relation(fields: [cardId], references: [id])
+
+  ChusanUserActivity           ChusanUserActivity?
+
+  @@map("chusan_user_data")
+}
+
+model ChusanUserActivity {
+  id                 BigInt         @id @default(autoincrement())
+  activityId         Int
+  kind               Int
+  param1             Int
+  param2             Int
+  param3             Int
+  param4             Int
+  sortNumber         Int
+  userId             BigInt
+  user               ChusanUserData @relation(fields: [userId], references: [id])
+
+  @@map("chusan_user_activity")
 }

@@ -5,6 +5,9 @@ import getGameEvent from './getGameEvent'
 import getGameIdlist from './getGameIdlist'
 import getGameRanking from './getGameRanking'
 import getGameSetting from './getGameSetting'
+import getTeamCourseRule from './getTeamCourseRule'
+import getTeamCourseSetting from './getTeamCourseSetting'
+import getUserActivity from './getUserActivity'
 
 export default {
   gameLogin,
@@ -14,4 +17,7 @@ export default {
   getGameIdlist,
   getGameRanking,
   getGameSetting,
+  getTeamCourseRule,
+  getTeamCourseSetting,
+  getUserActivity,
 }
