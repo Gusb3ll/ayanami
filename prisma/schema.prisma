@@ -13,7 +13,7 @@ datasource db {
 
 model SegaCard {
   id              BigInt             @id      @default(autoincrement())
-  extId           BigInt             @unique // AimeId
+  extId           BigInt             @unique
   luid            String             @unique
   registerTime    DateTime
   accessTime      DateTime
@@ -40,6 +40,16 @@ model ServerPropertyEntry {
 
 //? Chusan (Chunithm New & New Plus)
 
+model ChusanGameEvent {
+  id        Int      @id @default(autoincrement())
+  type      Int
+  startDate DateTime
+  endDate   DateTime
+  enable    Boolean
+
+  @@map("chusan_game_event")
+}
+
 model ChusanGameCharge {
   id            Int      @id @default(autoincrement())
   orderId       Int
@@ -52,16 +62,6 @@ model ChusanGameCharge {
   saleEndDate   DateTime
 
   @@map("chusan_game_charge")
-}
-
-model ChusanGameEvent {
-  id        Int      @id @default(autoincrement())
-  type      String
-  startDate DateTime
-  endDate   DateTime
-  enable    Boolean
-
-  @@map("chusan_game_event")
 }
 
 model ChusanUserData {
@@ -164,10 +164,12 @@ model ChusanUserData {
   rankUpChallengeResults       String
   isNetBattleHost              Boolean
   netBattleEndState            Int
+
   cardId                       BigInt
   card                         SegaCard @relation(fields: [cardId], references: [id])
 
   ChusanUserActivity           ChusanUserActivity?
+  ChusanUserCharacter          ChusanUserCharacter?
 
   @@map("chusan_user_data")
 }
@@ -181,8 +183,27 @@ model ChusanUserActivity {
   param3             Int
   param4             Int
   sortNumber         Int
+
   userId             BigInt
   user               ChusanUserData @relation(fields: [userId], references: [id])
 
   @@map("chusan_user_activity")
+}
+
+model ChusanUserCharacter {
+  id                 BigInt           @id @default(autoincrement())
+  playCount          Int              @default(0)
+  level              Int              @default(1)
+  friendshipExp      Int              @default(0)
+  isValid            Boolean          @default(true)
+  isNewMark          Boolean          @default(true)
+  exMaxLv            Int              @default(0)
+  assignIllust       Int              @default(0)
+  param1             Int              @default(0)
+  param2             Int              @default(0)
+
+  userId             BigInt
+  user               ChusanUserData   @relation(fields: [userId], references: [id])
+  
+  @@map("chusan_user_character")
 }

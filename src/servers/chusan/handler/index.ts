@@ -8,6 +8,8 @@ import getGameSetting from './getGameSetting'
 import getTeamCourseRule from './getTeamCourseRule'
 import getTeamCourseSetting from './getTeamCourseSetting'
 import getUserActivity from './getUserActivity'
+import getUserCharacter from './getUserCharacter'
+import getUserCharge from './getUserCharge'
 
 export default {
   gameLogin,
@@ -20,4 +22,6 @@ export default {
   getTeamCourseRule,
   getTeamCourseSetting,
   getUserActivity,
+  getUserCharacter,
+  getUserCharge,
 }

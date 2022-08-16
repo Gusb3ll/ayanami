@@ -45,4 +45,8 @@ chusanRouter.post('/GetUserActivityApi', (req, res) => {
   return res.status(200).json(chusanHandler.getUserActivity(req))
 })
 
+chusanRouter.post('/GetUserCharacterApi', (req, res) => {
+  return res.status(200).json(chusanHandler.getUserCharacter(req))
+})
+
 export default chusanRouter
